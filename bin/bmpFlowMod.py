@@ -35,39 +35,45 @@ if len(bmppointData[0]) != width: raise Exception("Widths are not the same")
 outputData = numpy.empty([height, width], dtype=float)
 
 # process (loop through) datasets
-
+start = time.time()
+print "Starting at %s" % (time.asctime())
+count = 0
 for R in range(1, height-1):
+    if count in [1, 2, 5, 10, 15, 25, 50, 100, 200, 500, 1000, 1500, 2000]:
+        print "Processing %i rows took %i seconds" % (count, (time.time()-start))
+    count += 1
     for C in range(1, width-1):
-        position = [R,C]
-        while 0 < position[0] < height and 0 < position[1] < width:
-            bmpval = bmppointData[position[0]][position[1]]
+        c = C
+        r = R
+        while 0 < r < height and 0 < c < width:
+            bmpval = bmppointData[r][c]
             if bmpval < 0: bmpval = 0
-            outputData[position[0]][position[1]] += (1-bmpval)
-            flowdirval = flowdirData[position[0]][position[1]]
+            outputData[r][c] += (1-bmpval)
+            flowdirval = flowdirData[r][c]
             if flowdirval == 1:
-                position[0] += 1
-                position[1] += 0
+                c += 1
+                r += 0
             if flowdirval == 2:
-                position[0] += 1
-                position[1] += -1
+                c += 1
+                r += 1
             if flowdirval == 4:
-                position[0] += 0
-                position[1] += -1
+                c += 0
+                r += 1
             if flowdirval == 8:
-                position[0] += -1
-                position[1] += -1
+                c += -1
+                r += 1
             if flowdirval == 16:
-                position[0] += -1
-                position[1] += 0
+                c += -1
+                r += 0
             if flowdirval == 32:
-                position[0] += -1
-                position[1] += 1
+                c += -1
+                r += -1
             if flowdirval == 64:
-                position[0] += 0
-                position[1] += 1
+                c += 0
+                r += -1
             if flowdirval == 128:
-                position[0] += 1
-                position[1] += 1
+                c += 1
+                r += -1
         
 # save outputs
 outputRaster = arcpy.NumPyArrayToRaster(outputData,lowerLeft,cellSize)
