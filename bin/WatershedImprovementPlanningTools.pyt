@@ -10,8 +10,8 @@ class Toolbox(object):
     def __init__(self):
         self.label = "WIP tools"
         self.alias = ""
-        self.tools = ["TopoHydro", "ImpCov", "Runoff"]
-
+        self.tools = [TopoHydro, ImpCov, Runoff]
+        
 class TopoHydro(object):
     def __init__(self):
         self.label = "Topography and Hydrology Analysis"
@@ -28,7 +28,7 @@ class TopoHydro(object):
         param0 = arcpy.Parameter(
             displayName="Input Digital Elevation Model",
             name="DEM",
-            datatype="GPRasterDataLayer",
+            datatype="DERasterDataset",
             parameterType="Required",
             direction="Input",
             multiValue=False)  
@@ -155,9 +155,10 @@ class Runoff(object):
             
     def execute(self, parameters, messages):
         try:
-            log("Parameter is %s" % (parameters[0].valueAsText)
+            log("Parameter is %s" % (parameters[0].valueAsText))
         except Exception as err:
             log(traceback.format_exc())
             log(err)
             raise err
         return
+		
