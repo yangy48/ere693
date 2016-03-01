@@ -10,7 +10,7 @@ import arcpy, os, sys, numpy
 # Output         = arcpy.getParameterAsText(2)
 Flow_Direction = arcpy.Raster("C:/Users/csomerlot/Desktop/Lab05Data/Lab05Geodatabase.gdb/FlowDir_Fill1")
 BMP_Points     = arcpy.Raster("C:/Users/csomerlot/Desktop/Lab05Data/Lab05Geodatabase.gdb/BMP_Points_PointToRaster")
-Output         = "C:/Users/csomerlot/Desktop/Lab04Data/Lab04Data.gdb/output"
+Output         = "C:/Users/csomerlot/Desktop/Lab05Data/Lab05Geodatabase.gdb/output"
 
 # set environment 
 
